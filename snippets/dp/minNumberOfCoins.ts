@@ -1,4 +1,15 @@
-export const minNumberOfCoinsUsingIteration = (coins: number[], amount: number): number => {
+/**
+ * Finds minimum number of coins to make amount
+ *
+ * @param coins - list of available coin denominations
+ * @param amount
+ *
+ * @returns minimum number of coins to make amount, or -1 if not possible
+ */
+const minNumberOfCoins = minNumberOfCoinsUsingIteration;
+export default minNumberOfCoins;
+
+export function minNumberOfCoinsUsingIteration(coins: number[], amount: number): number {
   const minByAmounts: number[] = new Array<number>(amount + 1).fill(amount + 1);
   minByAmounts[0] = 0;
 
@@ -12,18 +23,17 @@ export const minNumberOfCoinsUsingIteration = (coins: number[], amount: number):
   }
 
   return minByAmounts[amount] <= amount ? minByAmounts[amount] : -1;
-};
+}
 
-export const minNumberOfCoinsUsingRecursion = (coins: number[], amount: number): number => {
-  const memo: Record<number, number> = {};
-  return minNumberOfCoinsWithMemo(coins, amount, memo);
-};
+export function minNumberOfCoinsUsingRecursion(coins: number[], amount: number): number {
+  return minNumberOfCoinsWithMemo(coins, amount);
+}
 
-const minNumberOfCoinsWithMemo = (
+function minNumberOfCoinsWithMemo(
   coins: number[],
   amount: number,
-  memo: Record<number, number>
-): number => {
+  memo: Record<number, number> = {}
+): number {
   if (amount === 0) {
     return 0;
   }
@@ -52,15 +62,4 @@ const minNumberOfCoinsWithMemo = (
   const count = min ?? -1;
   memo[amount] = count;
   return count;
-};
-
-/**
- * Finds minimum number of coins to make amount
- *
- * @param coins - list of available coin denominations
- * @param amount
- *
- * @returns minimum number of coins to make amount, or -1 if not possible
- */
-const minNumberOfCoins = minNumberOfCoinsUsingIteration;
-export default minNumberOfCoins;
+}
