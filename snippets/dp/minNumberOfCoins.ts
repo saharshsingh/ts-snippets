@@ -1,53 +1,57 @@
 export const minNumberOfCoinsUsingIteration = (coins: number[], amount: number): number => {
-    const minByAmounts: number[] = new Array<number>(amount + 1).fill(amount + 1);
-    minByAmounts[0] = 0;
+  const minByAmounts: number[] = new Array<number>(amount + 1).fill(amount + 1);
+  minByAmounts[0] = 0;
 
-    for (let current = 1; current <= amount; current++) {
-        for (const coin of coins) {
-            if (coin > current) {
-                continue;
-            }
-            minByAmounts[current] = Math.min(1 + minByAmounts[current - coin], minByAmounts[current]);
-        }
+  for (let current = 1; current <= amount; current++) {
+    for (const coin of coins) {
+      if (coin > current) {
+        continue;
+      }
+      minByAmounts[current] = Math.min(1 + minByAmounts[current - coin], minByAmounts[current]);
     }
+  }
 
-    return minByAmounts[amount] <= amount ? minByAmounts[amount] : -1;
+  return minByAmounts[amount] <= amount ? minByAmounts[amount] : -1;
 };
 
 export const minNumberOfCoinsUsingRecursion = (coins: number[], amount: number): number => {
-    const memo: Record<number, number> = {};
-    return minNumberOfCoinsWithMemo(coins, amount, memo);
+  const memo: Record<number, number> = {};
+  return minNumberOfCoinsWithMemo(coins, amount, memo);
 };
 
-const minNumberOfCoinsWithMemo = (coins: number[], amount: number, memo: Record<number, number>): number => {
-    if (amount === 0) {
-        return 0;
+const minNumberOfCoinsWithMemo = (
+  coins: number[],
+  amount: number,
+  memo: Record<number, number>
+): number => {
+  if (amount === 0) {
+    return 0;
+  }
+
+  if (memo[amount] !== undefined) {
+    return memo[amount];
+  }
+
+  let min = undefined;
+  for (const coin of coins) {
+    if (coin > amount) {
+      continue;
     }
 
-    if (memo[amount] !== undefined) {
-        return memo[amount];
+    const remainingCount = minNumberOfCoinsWithMemo(coins, amount - coin, memo);
+    if (remainingCount === -1) {
+      continue;
     }
 
-    let min = undefined;
-    for (const coin of coins) {
-        if (coin > amount) {
-            continue;
-        }
-
-        const remainingCount = minNumberOfCoinsWithMemo(coins, amount - coin, memo);
-        if (remainingCount === -1) {
-            continue;
-        }
-
-        const count = 1 + remainingCount;
-        if (min === undefined || min > count) {
-            min = count;
-        }
+    const count = 1 + remainingCount;
+    if (min === undefined || min > count) {
+      min = count;
     }
+  }
 
-    const count = min ?? -1;
-    memo[amount] = count;
-    return count;
+  const count = min ?? -1;
+  memo[amount] = count;
+  return count;
 };
 
 /**

@@ -1,8 +1,11 @@
-import { longestCommonSubsequenceIteratively, longestCommonSubsequenceRecursively } from '../longestCommonSubsequence';
+import {
+  longestCommonSubsequenceIteratively,
+  longestCommonSubsequenceRecursively,
+} from '../longestCommonSubsequence';
 
 describe.each([
-    ['using iteration', longestCommonSubsequenceIteratively],
-    ['using recursion', longestCommonSubsequenceRecursively]
+  ['using iteration', longestCommonSubsequenceIteratively],
+  ['using recursion', longestCommonSubsequenceRecursively],
 ])('Longest Common Subsequence (%s)', (_, longestCommonSubsequence) => {
   it('should handle the example case correctly', () => {
     expect(longestCommonSubsequence('abcde', 'ace')).toBe(3);
@@ -38,10 +41,12 @@ describe.each([
   });
 
   it('should handle longer, more complex strings', () => {
-    expect(longestCommonSubsequence(
-      'aaaaaacaaaaacccaaaaaaaaaaacaaaaaaaaacaaaaacccaaaaaaaaaaacaaa',
-      'bcbcbcbcbcbcbcbcbcbcbcbc'
-    )).toBe(10);
+    expect(
+      longestCommonSubsequence(
+        'aaaaaacaaaaacccaaaaaaaaaaacaaaaaaaaacaaaaacccaaaaaaaaaaacaaa',
+        'bcbcbcbcbcbcbcbcbcbcbcbc'
+      )
+    ).toBe(10);
   });
 
   it('should handle repeated characters', () => {

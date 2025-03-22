@@ -1,38 +1,37 @@
 export const longestCommonSubsequenceRecursively = (first: string, second: string): number => {
-    return longestCommonSubsequenceUsingMemo(first, second, 0, 0, {});
+  return longestCommonSubsequenceUsingMemo(first, second, 0, 0, {});
 };
 
-const longestCommonSubsequenceUsingMemo = (first: string, second: string, f: number, s: number, memo: Record<string, number>): number => {
-    if (f >= first.length || s >= second.length) {
-        return 0;
-    }
-    const memoKey = `${f}-${s}`;
+const longestCommonSubsequenceUsingMemo = (
+  first: string,
+  second: string,
+  f: number,
+  s: number,
+  memo: Record<string, number>
+): number => {
+  if (f >= first.length || s >= second.length) {
+    return 0;
+  }
+  const memoKey = `${f}-${s}`;
 
-    if (memo[memoKey] !== undefined) {
-        return memo[memoKey];
-    }
+  if (memo[memoKey] !== undefined) {
+    return memo[memoKey];
+  }
 
-    if (first.charAt(f) === second.charAt(s)) {
-        const result =  1 + longestCommonSubsequenceUsingMemo(first, second, f+1, s+1, memo);
-        memo[memoKey] = result;
-        return result;
-    }
-
-    const withoutFirst = longestCommonSubsequenceUsingMemo(first, second, f+1, s, memo);
-    const withoutSecond = longestCommonSubsequenceUsingMemo(first, second, f, s+1, memo);
-    const result =  Math.max(withoutFirst, withoutSecond);
+  if (first.charAt(f) === second.charAt(s)) {
+    const result = 1 + longestCommonSubsequenceUsingMemo(first, second, f + 1, s + 1, memo);
     memo[memoKey] = result;
     return result;
+  }
+
+  const withoutFirst = longestCommonSubsequenceUsingMemo(first, second, f + 1, s, memo);
+  const withoutSecond = longestCommonSubsequenceUsingMemo(first, second, f, s + 1, memo);
+  const result = Math.max(withoutFirst, withoutSecond);
+  memo[memoKey] = result;
+  return result;
 };
 
 export const longestCommonSubsequenceIteratively = (first: string, second: string): number => {
-<<<<<<< Updated upstream
-    const firstL = first.length;
-    const secondL = second.length;
-    const dp: number[][] = new Array<Array<number>>(firstL+1);
-    for (let i = firstL; i >= 0; i--) {
-        dp[i] = new Array<number>(secondL+1).fill(0);
-=======
   const firstL = first.length;
   const secondL = second.length;
 
@@ -48,25 +47,10 @@ export const longestCommonSubsequenceIteratively = (first: string, second: strin
       }
 
       dp[i][j] = Math.max(dp[i][j - 1], dp[i - 1][j]);
->>>>>>> Stashed changes
     }
+  }
 
-<<<<<<< Updated upstream
-    for (let i = firstL-1; i >= 0; i--) {
-        for (let j = secondL-1; j >= 0; j--) {
-            if (first.charAt(i) === second.charAt(j)) {
-                dp[i][j] = dp[i+1][j+1] + 1;
-                continue;
-            }
-
-            dp[i][j] = Math.max(dp[i][j+1], dp[i+1][j]);
-        }
-    }
-
-    return dp[0][0];
-=======
   return dp[firstL][secondL];
->>>>>>> Stashed changes
 };
 
 /**

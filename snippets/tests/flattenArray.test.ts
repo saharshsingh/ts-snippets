@@ -3,9 +3,8 @@ import { flattenArrayRecursively, flattenArrayIteratively } from '../flattenArra
 // Test both implementations with the same test cases
 describe.each([
   ['flattenArrayRecursively', flattenArrayRecursively],
-  ['flattenArrayIteratively', flattenArrayIteratively]
+  ['flattenArrayIteratively', flattenArrayIteratively],
 ])('%s', (_, flattenArray) => {
-
   test('should return an empty array when given an empty array', () => {
     expect(flattenArray([])).toEqual([]);
   });
@@ -24,7 +23,13 @@ describe.each([
 
   test('should handle arrays with mixed data types', () => {
     type MixedType = string | number | boolean | null | undefined;
-    expect(flattenArray<MixedType>(['a', [1, true], [null, undefined]])).toEqual(['a', 1, true, null, undefined]);
+    expect(flattenArray<MixedType>(['a', [1, true], [null, undefined]])).toEqual([
+      'a',
+      1,
+      true,
+      null,
+      undefined,
+    ]);
   });
 
   test('should handle arrays with empty arrays', () => {
@@ -32,13 +37,7 @@ describe.each([
   });
 
   test('should handle complex nested structure', () => {
-    const input = [
-      1,
-      [2, 3],
-      [4, [5, 6]],
-      [[[7, 8], 9], 10],
-      11
-    ];
+    const input = [1, [2, 3], [4, [5, 6]], [[[7, 8], 9], 10], 11];
     const expected = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11];
     expect(flattenArray(input)).toEqual(expected);
   });

@@ -1,8 +1,11 @@
-import { minNumberOfCoinsUsingIteration, minNumberOfCoinsUsingRecursion } from '../minNumberOfCoins';
+import {
+  minNumberOfCoinsUsingIteration,
+  minNumberOfCoinsUsingRecursion,
+} from '../minNumberOfCoins';
 
 describe.each([
   ['(iteratively)', minNumberOfCoinsUsingIteration],
-  ['(recursively)', minNumberOfCoinsUsingRecursion]
+  ['(recursively)', minNumberOfCoinsUsingRecursion],
 ])('Coin Change - Minimum Number of Coins (%s)', (_, minNumberOfCoins) => {
   it('should return the minimum number of coins for standard case', () => {
     expect(minNumberOfCoins([1, 2, 5], 11)).toEqual(3);
@@ -13,7 +16,7 @@ describe.each([
   });
 
   it('should handle cases where greedy approach would fail', () => {
-    expect(minNumberOfCoins([1, 3, 4], 6)).toEqual(2);  // 3+3 is better than 4+1+1
+    expect(minNumberOfCoins([1, 3, 4], 6)).toEqual(2); // 3+3 is better than 4+1+1
   });
 
   it('should return -1 for impossible amounts', () => {
@@ -37,7 +40,7 @@ describe.each([
   });
 
   it('should return the minimum count when multiple solutions exist', () => {
-    expect(minNumberOfCoins([1, 2, 5], 10)).toEqual(2);  // 5+5 is better than 5+2+2+1
+    expect(minNumberOfCoins([1, 2, 5], 10)).toEqual(2); // 5+5 is better than 5+2+2+1
   });
 
   it('should handle empty coins array', () => {
@@ -45,10 +48,10 @@ describe.each([
   });
 
   it('should handle very large amounts', () => {
-    expect(minNumberOfCoins([1, 2, 5], 100)).toEqual(20);  // 20 coins of 5
+    expect(minNumberOfCoins([1, 2, 5], 100)).toEqual(20); // 20 coins of 5
   });
 
   it('should handle coins with duplicate denominations', () => {
-    expect(minNumberOfCoins([1, 2, 2, 5], 11)).toEqual(3);  // Same as [1, 2, 5]
+    expect(minNumberOfCoins([1, 2, 2, 5], 11)).toEqual(3); // Same as [1, 2, 5]
   });
 });
