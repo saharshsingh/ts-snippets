@@ -1,3 +1,10 @@
+/**
+ * You are climbing a staircase with n steps. You can take either 1 or 2 steps at a time.
+ * In how many distinct ways can you climb to the top?
+ */
+const climbSteps = climbStepsIteratively;
+export default climbSteps;
+
 export function climbStepsIteratively(n: number): number {
   const numOfWays: number[] = new Array<number>(n + 1);
 
@@ -14,11 +21,7 @@ export function climbStepsRecursively(n: number): number {
   return climbStepsUsingMemo(n);
 }
 
-export function climbStepsUsingMemo(n: number, memo?: Record<number, number>): number {
-  if (!memo) {
-    memo = {};
-  }
-
+function climbStepsUsingMemo(n: number, memo: Record<number, number> = {}): number {
   // Check if the result is already computed
   if (memo[n] !== undefined) {
     return memo[n];
@@ -36,10 +39,3 @@ export function climbStepsUsingMemo(n: number, memo?: Record<number, number>): n
   memo[n] = result;
   return result;
 }
-
-/**
- * You are climbing a staircase with n steps. You can take either 1 or 2 steps at a time.
- * In how many distinct ways can you climb to the top?
- */
-const climbSteps = climbStepsIteratively;
-export default climbSteps;
