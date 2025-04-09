@@ -1,4 +1,4 @@
-import Stack from './stack';
+import Stack from '../ds/stack';
 
 type NestedArray<T> = Array<T | NestedArray<T>>;
 
